@@ -9,6 +9,9 @@ const router = Router();
 // Configurar los routers
 // Ejemplo: router.use('/auth', authRouter);
 
+router.get("/", (req, res) => {
+  res.send("Welcome to Pokedex from Pako");
+});
 router.use("/pokemons", pokemons);
 router.use("/types", types);
 
