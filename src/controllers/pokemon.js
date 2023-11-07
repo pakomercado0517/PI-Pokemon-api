@@ -5,8 +5,8 @@ const { API_URL } = process.env;
 module.exports = {
   createPokemonsAPI: async function () {
     try {
-      // const isPokemons = await Pokemon.findAll({ include: { model: Type } });
-      // if (isPokemons.length) return res.status(200).json(isPokemons);
+      const isPokemons = await Pokemon.findAll({ include: { model: Type } });
+      if (isPokemons.length) return isPokemons;
       const first_items = await axios.get(`${API_URL}`);
       const second_items = await axios.get(first_items.data.next);
       const allPokemons = await first_items.data.results.concat(
