@@ -11,11 +11,11 @@ const { DB_USER, DB_PASSWORD, DB_HOST, DATABASE_URL } = process.env;
 let sequelize = new Sequelize(`${DATABASE_URL}`, {
   logging: false, // set to console.log to see the raw SQL queries
   native: false, // lets Sequelize know we can use pg-native for ~30% more speed
-  dialectOptions: {
-    ssl: {
-      rejectUnauthorized: false,
-    },
-  },
+  // dialectOptions: {
+  //   ssl: {
+  //     rejectUnauthorized: false,
+  //   },
+  // },
 });
 const basename = path.basename(__filename);
 
@@ -47,6 +47,7 @@ const { Pokemon, Type } = sequelize.models;
 
 // Aca vendrian las relaciones
 // Product.hasMany(Reviews);
+
 Pokemon.belongsToMany(Type, { through: "pokemon_type" });
 Type.belongsToMany(Pokemon, { through: "pokemon_type" });
 
