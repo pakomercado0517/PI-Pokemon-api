@@ -13,11 +13,11 @@ console.log("DATABASE_URL", DATABASE_URL);
 let sequelize = new Sequelize(`${DATABASE_URL}`, {
   logging: false, // set to console.log to see the raw SQL queries
   native: false, // lets Sequelize know we can use pg-native for ~30% more speedß
-  // dialectOptions: {
-  //   ssl: {
-  //     rejectUnauthorized: false,
-  //   },
-  // },
+  dialectOptions: {
+    ssl: {
+      rejectUnauthorized: false,
+    },
+  },
 });
 const basename = path.basename(__filename);
 
