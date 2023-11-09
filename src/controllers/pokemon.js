@@ -89,11 +89,11 @@ module.exports = {
       res.status(400).json({ message: error });
     }
   },
-  getByName: async function (req, res) {
-    const { name } = req.params;
+  getById: async function (req, res) {
+    const { id } = req.params;
     try {
       const pokemon = await Pokemon.findAll({
-        where: { name },
+        where: { id },
         include: { model: Type },
       });
       if (!pokemon) return res.status(404).send("Pokemon not found");

@@ -4,7 +4,7 @@ const pokemonFunctions = require("../controllers/pokemon");
 
 //GET methods
 router.get("/", pokemonFunctions.getPokemons);
-router.get("/:name", pokemonFunctions.getByName);
+router.get("/:id", pokemonFunctions.getById);
 router.get("/filterName/ASC", pokemonFunctions.getNameASC);
 router.get("/filterName/DESC", pokemonFunctions.getNameDESC);
 router.get("/filterHp/ASC", pokemonFunctions.getForceASC);
