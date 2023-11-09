@@ -17,8 +17,9 @@ server.use(cookieParser());
 server.use(morgan("dev"));
 server.use(
   cors({
-    origin: ["https://pako-pokedex.surge.sh", "http://localhost:5174"],
-    methods: "GET,POST,PUT,DELETE",
+    origin: ["https://pako-pokedex.surge.sh", "http://localhost:5173"],
+    // origin: "*",
+    methods: "GET,POST,PUT,DELETE,OPTIONS",
     credentials: true,
   })
 );

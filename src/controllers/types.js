@@ -4,6 +4,9 @@ const { Type } = require("../db");
 module.exports = {
   getTypes: async () => {
     try {
+      const findTypes = await Type.findAll();
+      if (findTypes.length)
+        return console.log("types finded and ready to use on DB");
       const types = await axios.get("https://pokeapi.co/api/v2/type");
       const totalTypes = types.data.results.map((el) => el.name);
       totalTypes.map(async (el) => await Type.create({ name: el }));
