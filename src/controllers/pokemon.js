@@ -1,5 +1,5 @@
 const axios = require("axios");
-const { Pokemon, Type } = require("../db");
+const { Pokemon, Type, pokemon_type } = require("../db");
 const { API_URL } = process.env;
 
 module.exports = {
@@ -182,6 +182,46 @@ module.exports = {
         include: { model: Pokemon },
       });
       res.status(200).json(filterType);
+    } catch (error) {
+      res.status(400).json({ message: error.message });
+    }
+  },
+  updatePokemon: async function (req, res, next) {
+    const { id } = req.params;
+    const { name, hp, attack, defense, speed, height, weight, sprite, types } =
+      req.body;
+    console.log("types", types);
+    try {
+      const pokemon = await Pokemon.findOne({ where: { id } });
+      if (!pokemon) return res.status(404).send("Pokemon not found");
+      const newPokemon = await pokemon.update({
+        name,
+        hp,
+        attack,
+        defense,
+        speed,
+        height,
+        weight,
+        sprite,
+      });
+
+      await pokemon_type.destroy({ where: { pokemonId: id } });
+      types.map(async (element) => {
+        const newTypes = await Type.findOne({ where: { name: element.name } });
+        await newTypes.addPokemon(newPokemon);
+      });
+      res.status(200).json({ state: "succesfully" });
+    } catch (error) {
+      res.status(400).json({ message: error.message });
+      next(error);
+    }
+  },
+  deletePokemon: async function (req, res) {
+    const { id } = req.params;
+    try {
+      const pokemon = await Pokemon.findOne({ where: { id } });
+      await pokemon.destroy();
+      res.status(200).json({ state: "succesfully" });
     } catch (error) {
       res.status(400).json({ message: error.message });
     }

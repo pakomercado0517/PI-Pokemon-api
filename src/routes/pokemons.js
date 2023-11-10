@@ -15,4 +15,10 @@ router.get("/filterType/:type", pokemonFunctions.filterType);
 //POST methods
 router.post("/", pokemonFunctions.createPokemon);
 
+//PUT methods
+router.put("/:id", pokemonFunctions.updatePokemon);
+
+//DELETE methods
+router.delete("/:id", pokemonFunctions.deletePokemon);
+
 module.exports = router;
